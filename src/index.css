@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Pixelify Sans";
+    src: url('../assets/PixelifySans.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .pixelify-sans {
+    font-family: "Pixelify Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+  .custom-shadow3 {
+    text-shadow: 0px 8px 0px #101e34;
+  }
+  .custom-shadow2{
+    text-shadow: 0px 2px 0px #101e34;
+  }
+  .button-hover:hover{
+    background-color: #d75a00 !important;
+  }
