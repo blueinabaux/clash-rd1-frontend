@@ -5,28 +5,25 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.font-pixel {
-  font-family: "Press Start 2P", cursive;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Pixelify Sans', cursive;
 }
 
 body {
-  font-family: "Press Start 2P", monospace;
+  background: linear-gradient(135deg, #F08E25, #881200);
+  min-height: 100vh;
 }
 
-.pixel-borders {
-  position: relative;
-  z-index: 1;
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.pixel-borders::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border: 2px solid #4a1237;
-  z-index: -1;
+.main-content {
+  flex: 1;
+  padding: 20px;
 }
-
