@@ -1,21 +1,18 @@
 import React from 'react';
 // import { useNavigate } from 'react-router-dom'
 import ClashPixelBG from '../assets/ClashPixelBG.gif';
+import { Button } from 'pixel-retroui';
 
 const Home = () => {
-  // const navigate = useNavigate();
-  const handlePlayClick=()=>{
-  // navigate('/login');
-  }
     return (
         <div 
-            className="home-container h-screen w-screen bg-cover bg-center flex items-center justify-center" 
+            className="home-container h-screen w-screen bg-contain bg-center flex flex-col items-center justify-center" 
             style={{ backgroundImage: `url(${ClashPixelBG})` }}
         >
             <svg
               viewBox="0 0 500 100"
               xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-full"
+              className="w-full h-auto bg-"
             >
               <text
                 x="50%"
@@ -24,9 +21,9 @@ const Home = () => {
                 textAnchor="middle"
                 fill="#F6B639"
                 stroke="#310202"
-                strokeWidth="6"
+                strokeWidth="5"
                 paintOrder="stroke fill"
-                className="custom-shadow3 font-bold text-[6vw] lg:text-[3vw] pixelify-sans"
+                className="custom-shadow3 font-bold text-[40px]  pixelify-sans"
               >
                CLASH
               </text>
@@ -44,39 +41,29 @@ const Home = () => {
               >
               INTO THE UNKNOWN
               </text>
-              <foreignObject x="50%" 
-              y="101%" 
-              width="200" 
-              height="40" 
-              transform="translate(-100, 0)">
-                <div className="flex items-center justify-center h-full">
-                  <button   className="px-6 py-0.5 text-white font-bold  hover:bg-opacity-90 pixelify-sans custom-shadow2 rounded-sm button-hover"
-                    style={{ backgroundColor: '#E87532', 
-                    fontSize: '9px', 
-                    color: '#F6B639',  
-                    textShadow:'1px 1px #310202', 
-                    border:'0.5px solid #310202',
-                    boxShadow: '1.5px 1.5px 1px #1E3445',
-                    }}
-                    onClick = {window.location.href="./login.jsx"}>
-                    PLAY
-                  </button>
-                </div>
-              </foreignObject>
-              
+                
             </svg>
+            <Button
+                     bg="#DE5027"
+                     textColor="#FFF546"
+                     borderColor="#310202"
+                     shadowColor="#310202"
+                     className="px-[50px] text-[24px]"
+                    // style={{ backgroundColor: '#E87532', 
+                    // fontSize: '9px', 
+                    // color: '#F6B639',  
+                    // textShadow:'1px 1px #310202', 
+                    // border:'0.5px solid #310202',
+                    // boxShadow: '1.5px 1.5px 1px #1E3445',
+                    // }}
+                   >
+                    PLAY
+                  </Button>
             
                 
             </div>
     );
 }
-const Loginpg = () => {
-  return(
-    <div 
-    className="home-container h-screen w-screen bg-cover bg-center flex items-center justify-center" 
-    style={{ backgroundImage: `url(${ClashPixelBG})` }}
-> </div>
-  );
-}
+
 
 export default Home;

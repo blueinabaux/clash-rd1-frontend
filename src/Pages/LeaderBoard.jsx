@@ -32,10 +32,11 @@ const LeaderBoard = () => {
                 <div className="stats-container">
                   <div className="stats-row">
                     <div className="stats-label">QUESTIONS SOLVED</div>
-                    <div className="stats-label">ACCURACY</div>
+                    <div className="stats-value">{player.questionsSolved}</div>
+                    
                   </div>
                   <div className="stats-row">
-                    <div className="stats-value">{player.questionsSolved}</div>
+                  <div className="stats-label">ACCURACY</div>
                     <div className="stats-value">{player.accuracy}</div>
                   </div>
                 </div>
