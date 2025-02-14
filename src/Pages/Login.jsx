@@ -1,4 +1,4 @@
-import { authUser, notAuthUser } from "../Redux/authSlice";
+// import { authUser, notAuthUser } from "../redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 //import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useState } from "react";
+import { authUser, notAuthUser } from "../redux/slices/authSlice";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -73,7 +74,7 @@ const Login = () => {
   return (
     <>
     <div
-      className="home-container h-screen w-screen bg-cover bg-center flex flex-col
+      className="home-container h-screen w-screen bg-contain bg-center flex flex-col
       items-center justify-center  
       font-['Pixelify_Sans',serif] font-bold"
       style={{ backgroundImage: `url(${ClashPixelBG})` }}

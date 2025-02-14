@@ -12,6 +12,9 @@ import LeaderBoard from "./Pages/LeaderBoard";
 import Questions from "./Pages/Questions";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
+import { Provider } from "react-redux";
+import { persistor, store } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +28,9 @@ const router = createBrowserRouter(
 );
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} >
-    <App />
-  </RouterProvider>
+  <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
 );

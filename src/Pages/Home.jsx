@@ -2,8 +2,17 @@ import React from 'react';
 // import { useNavigate } from 'react-router-dom'
 import ClashPixelBG from '../assets/ClashPixelBG.gif';
 import { Button } from 'pixel-retroui';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Home = () => {
+
+    const navigate = useNavigate();
+
+    const toPage = () => {
+      navigate("/login");
+    }
     return (
         <div 
             className="home-container h-screen w-screen bg-contain bg-center flex flex-col items-center justify-center" 
@@ -56,6 +65,8 @@ const Home = () => {
                     // border:'0.5px solid #310202',
                     // boxShadow: '1.5px 1.5px 1px #1E3445',
                     // }}
+                    onClick={() => toPage()}
+
                    >
                     PLAY
                   </Button>
