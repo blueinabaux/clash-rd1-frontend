@@ -12,6 +12,7 @@ import LeaderBoard from "./Pages/LeaderBoard";
 import Questions from "./Pages/Questions";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
+import ResultPage from "./Pages/Result/ResultPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,8 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/leaderboard" element={<LeaderBoard />} />
       <Route path="/questions" element={<Questions />} />
+      <Route path="/result" element={<ResultPage />} />
+
     </Route>
   )
 );
