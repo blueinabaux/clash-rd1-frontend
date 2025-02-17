@@ -29,7 +29,7 @@ export default function Questions() {
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
-          clearInterval(timer); // Stop the timer before navigating
+          clearInterval(timer);
           navigate("/result");
           return 0;
         }
@@ -40,20 +40,21 @@ export default function Questions() {
     return () => clearInterval(timer);
   }, [navigate]);
 
-  // Detect fullscreen exit
+  // Detect fullscreen exit and count exits
   useEffect(() => {
     const handleFullscreenChange = () => {
       if (!document.fullscreenElement) {
         setFullscreenExits((prevExits) => {
           const newExits = prevExits + 1;
-          console.log("Fullscreen exits:", newExits); // Now used in console
-          
+          console.log("Fullscreen exits count:", newExits);
+
           if (newExits >= 3) {
             alert("You have exited fullscreen too many times. Redirecting to results.");
             navigate("/result");
           } else {
             alert(`Warning: Fullscreen mode exited! (${newExits}/3)`);
           }
+
           return newExits;
         });
       }
@@ -95,7 +96,7 @@ export default function Questions() {
         <div className="flex-1 bg-[#EC841C] rounded-lg border-4 border-[#4A1237] h-[300px] sm:h-[400px] shadow-[3px_3px_0px_0px_#1E3445] flex flex-col items-center justify-center text-white text-xl p-4">
           {loading ? "Loading..." : questionData?.question || "No question available"}
           <div className="mt-4 text-2xl font-bold text-[#FFF546]">Time Left: {formatTime(timeLeft)}</div>
-          <div className="mt-2 text-lg text-white">Fullscreen Exits: {fullscreenExits}</div> {/* ✅ Used in UI */}
+          <div className="mt-2 text-lg text-white">Fullscreen Exits: {fullscreenExits}</div> 
         </div>
 
         {/* Side Panel */}
