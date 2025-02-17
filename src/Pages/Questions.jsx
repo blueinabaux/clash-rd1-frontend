@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Questions() {
@@ -6,6 +7,8 @@ export default function Questions() {
   const [questionData, setQuestionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
+  const [fullscreenExits, setFullscreenExits] = useState(0);
+  const navigate = useNavigate();
 
   // Fetch question data when component mounts
   useEffect(() => {
@@ -23,14 +26,45 @@ export default function Questions() {
 
   // Timer countdown effect
   useEffect(() => {
-    if (timeLeft <= 0) return;
-    
     const timer = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timer); // Stop the timer before navigating
+          navigate("/result");
+          return 0;
+        }
+        return prevTime - 1;
+      });
     }, 1000);
-    
+
     return () => clearInterval(timer);
-  }, [timeLeft]);
+  }, [navigate]);
+
+  // Detect fullscreen exit
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        setFullscreenExits((prevExits) => {
+          const newExits = prevExits + 1;
+          console.log("Fullscreen exits:", newExits); // Now used in console
+          
+          if (newExits >= 3) {
+            alert("You have exited fullscreen too many times. Redirecting to results.");
+            navigate("/result");
+          } else {
+            alert(`Warning: Fullscreen mode exited! (${newExits}/3)`);
+          }
+          return newExits;
+        });
+      }
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, [navigate]);
 
   // Convert timeLeft to minutes and seconds
   const formatTime = (seconds) => {
@@ -61,6 +95,7 @@ export default function Questions() {
         <div className="flex-1 bg-[#EC841C] rounded-lg border-4 border-[#4A1237] h-[300px] sm:h-[400px] shadow-[3px_3px_0px_0px_#1E3445] flex flex-col items-center justify-center text-white text-xl p-4">
           {loading ? "Loading..." : questionData?.question || "No question available"}
           <div className="mt-4 text-2xl font-bold text-[#FFF546]">Time Left: {formatTime(timeLeft)}</div>
+          <div className="mt-2 text-lg text-white">Fullscreen Exits: {fullscreenExits}</div> {/* ✅ Used in UI */}
         </div>
 
         {/* Side Panel */}
@@ -89,7 +124,7 @@ export default function Questions() {
         </div>
       </div>
       
-      {/* Next Button (Moved Back to Right-Aligned Position) */}
+      {/* Next Button */}
       <div className="flex justify-end w-full max-w-3xl mt-6">
         <button
           className="bg-[#FF7B00] text-[#FFF546] px-6 sm:px-8 py-3 rounded-lg border-4 border-[#4A1237] hover:opacity-90 transition-opacity shadow-[3px_3px_0px_0px_#1E3445]"
