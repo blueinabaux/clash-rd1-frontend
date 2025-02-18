@@ -13,7 +13,7 @@
 .leaderboard-title {
   font-size: 2.5rem;
   color: #FFF546;
-  background-color: green;
+  /* background-color: green; */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 

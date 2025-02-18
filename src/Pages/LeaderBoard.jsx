@@ -1,5 +1,7 @@
 import React from 'react';
 import './LeaderBoard.css';
+import DataGridDemo from "../components/Table/DataGridDemo";
+
 
 const LeaderBoard = () => {
   const topPlayers = [
@@ -45,7 +47,7 @@ const LeaderBoard = () => {
           ))}
         </div>
 
-        <div className="players-list">
+        <div className="players-list bg--400 h-auto ">
           <div className="your-rank">
             <span>YOUR RANK</span>
             <span className="rank-number">10</span>
@@ -58,14 +60,15 @@ const LeaderBoard = () => {
             </div>
           </div>
 
-          <div className="table-container">
-            <div className="table-header">
+          {/* <div className="table-container overflow-y-auto bg-purple-500"> */}
+            {/* <div className="table-header">
               <span>RANK</span>
               <span>USERNAME</span>
               <span>QUES. SOLVED</span>
               <span>ACCURACY</span>
-            </div>
-          </div>
+            </div> */}
+            <DataGridDemo/>
+          {/* </div> */}
         </div>
       </div>
     </div>
