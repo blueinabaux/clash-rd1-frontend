@@ -33,9 +33,12 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
+
     e.preventDefault();
     const {username,password}=logData;
     console.log(logData);
+
+  const loadingToast = toast.loading("Logging in...");
     try {
       const res = await axios.post(
         "http://localhost:5000/login",
@@ -47,21 +50,35 @@ const Login = () => {
 
       console.log(res);
 
-      if(res.status===404){
-        throw 404 
+      if (res.status === 404) {
+        throw new Error("User not found");
+      } else if (res.status === 400) {
+        throw new Error("Invalid credentials");
       }
-      else if(res.status===400){
-        throw 400
-      }
-      toast.success("Login Successful!", { position: "top-center" });
-      console.log("login Success!!!",res.data);
+  
+      // Update the loading toast to success
+      toast.update(loadingToast, {
+        render: "Login Successful!",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    //   console.log("login Success!!!",res.data);
       dispatch(authUser());
       navigate("/instructions");
     } catch (err) {
       setErrorMessage("Invalid Username or Password");
       console.error("Invalid Username or Password");
-      showToastMessage();
+      
+    toast.update(loadingToast, {
+        render: "Invalid username or password!",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+
       dispatch(notAuthUser());
+
     }
   };
   const showToastMessage = () => {

@@ -15,14 +15,19 @@ import Login from "./Pages/Login";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import PrivateRoutes from "./privateRoutes/Privateroutes";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="/login" element={<Login />} />
+
+      <Route element={<PrivateRoutes/>} >
       <Route path="/leaderboard" element={<LeaderBoard />} />
       <Route path="/questions" element={<Questions />} />
+
+      </Route>
     </Route>
   )
 );
