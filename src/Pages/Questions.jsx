@@ -21,7 +21,7 @@ export default function Questions() {
         headers: {
           Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
         },
-      })
+      }, {withCredentials: true})
       .then((response) => {
         console.log(response.data);
         setQuestionData(response.data);

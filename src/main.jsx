@@ -19,6 +19,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./redux/store"; // Ensure correct path
 import Instructions from "./Pages/Instructions.jsx";
+import LifelinesPage from "../../RC_Frontend_Rd1/src/Pages/Lifelines/LifelinesPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
 
       <Route element={<PrivateRoutes />}>
       <Route path="/instructions" element={<Instructions />} />
+
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/questions" element={<Questions />} />
         <Route path="/result" element={<ResultPage />} />
