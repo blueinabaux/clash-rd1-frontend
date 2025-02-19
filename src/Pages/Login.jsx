@@ -8,19 +8,22 @@ import ClashPixelBG from "../assets/ClashPixelBG.gif";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authUser, notAuthUser } from "../redux/slices/authSlice";
 
 const Login = () => {
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // For Fullscreen
+  const [errorMessage, setErrorMessage] = useState("");
+  const [exitAttempts, setExitAttempts] = useState(0);
 
   axios.defaults.withCredentials=true;
   const isAuth = useSelector((state) => state.auth.isAuth);
 
   const [logData, setLogData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -35,15 +38,15 @@ const Login = () => {
   const handleLogin = async (e) => {
 
     e.preventDefault();
-    const {username,password}=logData;
+    const {email,password}=logData;
     console.log(logData);
 
   const loadingToast = toast.loading("Logging in...");
     try {
       const res = await axios.post(
-        "http://localhost:5000/login",
+        "http://localhost:5002/login",
         {
-          email: logData.username,
+          email: logData.email,
           password:logData.password
         })
       ;
@@ -65,6 +68,7 @@ const Login = () => {
       });
     //   console.log("login Success!!!",res.data);
       dispatch(authUser());
+      goFullScreen();
       navigate("/instructions");
     } catch (err) {
       setErrorMessage("Invalid Username or Password");
@@ -85,7 +89,46 @@ const Login = () => {
     toast.warning("Invalid password!", {
     position: "top-center",
     });
+
+    
   };
+
+
+  const goFullScreen = () => {
+    const element = document.documentElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  };
+
+  // Detect Fullscreen Exit
+  const handleFullscreenChange = () => {
+    if (!document.fullscreenElement) {
+      setExitAttempts((prev) => prev + 1);
+      toast.warning("Please stay in fullscreen mode!");
+
+      if (exitAttempts + 1 >= 3) {
+        toast.error("Too many exit attempts! Logging out...");
+        dispatch(notAuthUser());
+        navigate("/");
+      } else {
+        goFullScreen(); // Re-enter fullscreen mode
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, [exitAttempts]);
 
   
   return (
@@ -133,7 +176,7 @@ const Login = () => {
           >
             <div className="form-inputs mb-[30px] bg--600 h-[30vh] flex flex-col justify-center items-center ">
               <div className="form-group mb-2 text-left bg--500">
-                <label for="username" className="block mb-1">
+                <label htmlFor="email" className="block mb-1">
                   <svg
                     viewBox="0 40 500 100"
                     xmlns="http://www.w3.org/2000/svg"
@@ -156,17 +199,17 @@ const Login = () => {
                   </svg>
                 </label>
                 <input
-                  type="text"
-                  id="username"
-                  name="username"
+                  type="email"
+                  id="email"
+                  name="email"
                   required
                   className="w-[300px] p-3 rounded-[10px] mb-2 text-black bg-transparent border-2 border-black -mt-4 "
                   onChange={addData}
-                  value={logData.username}
+                  value={logData.email}
                 />
               </div>
               <div className="form-group mb-2 text-left bg--500">
-                <label for="password" className="block mb-1">
+                <label htmlFor="password" className="block mb-1">
                   <svg
                     viewBox="0 0 500 100"
                     xmlns="http://www.w3.org/2000/svg"
