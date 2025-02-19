@@ -48,7 +48,11 @@ const Login = () => {
         {
           email: logData.email,
           password:logData.password
-        })
+        },
+        {
+          withCredentials:true
+        }
+      )
       ;
 
       console.log(res);

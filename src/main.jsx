@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import PrivateRoutes from "./privateRoutes/Privateroutes.jsx"; // Ensure this exists
 import LeaderBoard from "./Pages/LeaderBoard";
-import Questions from "./Pages/Questions";
+import Questions from "./Pages/Questions.jsx";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import ResultPage from "./Pages/Result/ResultPage";
