@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, Card } from "pixel-retroui";
 import Cookies from "js-cookie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "react-fontawesome"
+// import { FontAwesomeIcon } from "@fontawesome/re/act-fontawesome";
+import { faCircleInfo, faCirclePlay } from "react-fontawesome";
 
 const Timer = ({questionData,timeLeft}) => {
   const [timeL, setTimeL] = useState(timeLeft)
