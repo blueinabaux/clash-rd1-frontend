@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 // import { FontAwesomeIcon } from "@fontawesome/re/act-fontawesome";
 import { faCircleInfo, faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer } from "react-toastify";
 
 const Timer = ({questionData,timeLeft}) => {
   const [timeL, setTimeL] = useState(timeLeft)
@@ -16,7 +17,7 @@ const Timer = ({questionData,timeLeft}) => {
       setTimeL((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
-          navigate("/result");
+          navigate("/leaderboard");
           return 0;
         }
      else{return prevTime - 1;}
@@ -86,7 +87,7 @@ export default function Questions() {
 
 
       await axios
-        .get("https://clashroundonebackend.api.credenz.co.in/start", {
+        .get(`${import.meta.env.VITE_BASE_URL}/start`, {
 
           withCredentials: true,
         })
@@ -181,14 +182,21 @@ export default function Questions() {
 
   const handleLifelineUse = async (lifelineType) => {
 
+    try{
+
+    
     const token = Cookies.get("jwt");
 
     if (lifelineType == "lifeline1") {
       const res1 = await axios.post(
         `https://clashroundonebackend.api.credenz.co.in/${lifelineType}`,
-     
+        {
+
+          withCredentials: true,
+        }
       );
-      alert("Your have 2 chances to answer the question");
+      // alert("Your have 2 chances to answer the question");
+      toast.info("Double Dip Activated: You have two chances!", { position: "top-right" });
 
       // setQuestionData(res1.data.question);
 
@@ -209,11 +217,15 @@ export default function Questions() {
     if (lifelineType == "lifeline2") {
       const res2 = await axios.post(
         `https://clashroundonebackend.api.credenz.co.in/${lifelineType}`,
-   
+        {
+
+          withCredentials: true,
+        }
       );
 
       setFifty(res2.data.options);
-      alert("2 OPTIONS HAVE BEEN DISABLED");
+      // alert("2 OPTIONS HAVE BEEN DISABLED");
+      toast.warn("50-50 Activated: Two wrong options removed!", { position: "top-right" });
 
 
       // setQuestion({
@@ -242,6 +254,10 @@ export default function Questions() {
               withCredentials: true,
             }
           );
+          console.log("LIFE LINE 3: ", res3.data);
+          toast.success("Gamble Activated!", { position: "top-right" });
+
+          // alert("Gamble Activated");
           // setQuestion({
           //   question_id: res3.data.question.question_id,
           //   is_junior: res3.data.question.is_junior,
@@ -260,6 +276,10 @@ export default function Questions() {
           // setScore(res3.data.marks);
 
         }
+      }
+      catch(err){
+        toast.error("Failed to activate lifeline. Try again.", { position: "top-right" })
+      }
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -286,10 +306,11 @@ export default function Questions() {
         }
       )
       .then((response) => {
-        console.log('response is',response)
+        if(response.data !== undefined){
+          console.log('response is',response)
 
         console.log("CURRENT QUESTION: ---> ", response.data.question);
-
+        
         if(response.data.message === "First guess was wrong. You have one more chance!"){
           return ;
         }
@@ -321,7 +342,7 @@ export default function Questions() {
         }
 
 
-        console.log('ld',response.data.lifelinestatus[0],response.data.lifelinestatus[1],response.data.lifelinestatus[2])
+        // console.log('ld',response.data.lifelinestatus[0],response.data.lifelinestatus[1],response.data.lifelinestatus[2])
         handleOptionSelect(null)
         setSelectedOption(null)
 
@@ -332,7 +353,12 @@ export default function Questions() {
         
         if (response.status == 202) {
           alert(response.data.message);
-          // navigate('/result');
+          navigate('/leaderboard');
+        }
+        }
+        else{
+          alert("You have completed the test")
+          navigate('/leaderboard')
         }
       })
       .catch((error) => {
@@ -349,6 +375,7 @@ export default function Questions() {
 
   return (
     <div className="questions-container bg-gradient-to-b from-[#F08E25] to-[#881200] h-[100vh] w-full flex justify-center items-center ">
+        <ToastContainer/>
       <div className="question-left h-[76%] w-[60%] flex flex-col justify-start items-center bg--600 gap-[20px] ">
        
 <Timer questionData={questionData} timeLeft ={timeLeft} />

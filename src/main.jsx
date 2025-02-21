@@ -13,13 +13,14 @@ import LeaderBoard from "./Pages/LeaderBoard";
 import Questions from "./Pages/Questions.jsx";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
-import ResultPage from "./Pages/Result/ResultPage";
+// import ResultPage from "./Pages/Result/ResultPage";
 
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./redux/store"; // Ensure correct path
-import Instructions from "./Pages/Instructions.jsx";
+// import Instructions from "./Pages/Instructions.jsx";
 // import LifelinesPage from "../../RC_Frontend_Rd1/src/Pages/Lifelines/LifelinesPage.jsx";
+import InstructionPage from "./Pages/Instructions/InstructionPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,11 +29,11 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
 
       <Route element={<PrivateRoutes />}>
-      <Route path="/instructions" element={<Instructions />} />
+      <Route path="/instructions" element={<InstructionPage />} />
 
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/questions" element={<Questions />} />
-        <Route path="/result" element={<ResultPage />} />
+        {/* <Route path="/abczyxc" element={<ResultPage />} /> */}
       </Route>
     </Route>
   )

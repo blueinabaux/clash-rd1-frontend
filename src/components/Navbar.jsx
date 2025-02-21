@@ -52,21 +52,21 @@ const Navbar = () => {
       >
         CLASH
       </Link>
-      <div className="nav-links h-full w-[32%] bg--600 flex justify-evenly items-center text-[20px] ">
+      <div className="nav-links h-full w-[50vw] bg--600 flex justify-evenly items-center text-[20px] ">
       {isAuthenticated ? (
             <>
               <Link to="/instructions">Instructions</Link>
               <Link to="/questions">Questions</Link>
               <Link to="/leaderboard">Leaderboard</Link>
               <Button
-                bg="#CA5F93"
+                bg="#c94a26"
                 textColor="black"
                 borderColor="#4A1237"
                 shadow="#4A1237"
                 className="px-[20px] py-[2px] text-[16px] font-bold "
                 onClick={logout}
               >
-                <h1 className="text-[#4A1237]">LOGOUT</h1>
+                <h1 className="text-[#e1d600]">LOGOUT</h1>
               </Button>
             </>
           ) : null}

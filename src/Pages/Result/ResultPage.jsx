@@ -52,10 +52,6 @@ const ResultPage = () => {
           `https://clashroundonebackend.api.credenz.co.in/submit`,
 
           {
-            headers: {
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
-
             withCredentials: true,
           }
         );

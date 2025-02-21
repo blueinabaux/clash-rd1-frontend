@@ -44,7 +44,8 @@ const Login = () => {
   const loadingToast = toast.loading("Logging in...");
     try {
       const res = await axios.post(
-        "https://clashroundonebackend.api.credenz.co.in/login",
+        // "https://clashroundonebackend.api.credenz.co.in/login",
+        `${import.meta.env.VITE_BASE_URL}/login`,
         {
           email: logData.email,
           password:logData.password
