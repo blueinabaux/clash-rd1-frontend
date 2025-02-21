@@ -75,11 +75,11 @@ const Login = () => {
       // goFullScreen();
       navigate("/instructions");
     } catch (err) {
-      setErrorMessage("Invalid Username or Password");
-      console.error("Invalid Username or Password");
+      setErrorMessage("Invalid Email or Password");
+      console.error("Invalid Email or Password");
       
     toast.update(loadingToast, {
-        render: "Invalid username or password!",
+        render: "Invalid Email or password!",
         type: "error",
         isLoading: false,
         autoClose: 3000,
@@ -198,7 +198,7 @@ const Login = () => {
                       className="font-bold lg:text-[3vw] max-lg:text-[4vh] drop-shadow-[3px_3px_0px_#101e34] "
                       
                     >
-                      USERNAME
+                      EMAIL
                     </text>
                   </svg>
                 </label>
