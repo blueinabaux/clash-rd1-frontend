@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import { useEffect, useState } from "react";
 
 const Layout = () => {
 
@@ -33,10 +34,26 @@ const Layout = () => {
     };
   }, []);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Set the initial state after mounting
+    setIsMobile(window.innerWidth < 600);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   if (isMobile) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-black text-white text-center p-4">
-        <h1 className="text-2xl font-bold">Contest can only be given on desktop</h1>
+        <h1 className="text-2xl font-bold">Contest can only be given on Desktop</h1>
       </div>
     );
   }
