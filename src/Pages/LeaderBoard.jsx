@@ -25,7 +25,7 @@ const Leaderboard = () => {
         //   withCredentials: true,
         // });
         const res = await axios.get(`https://clashroundonebackend.api.credenz.co.in/leaderboard`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` }, withCredentials: true
         }
       );
 
@@ -72,7 +72,7 @@ const Leaderboard = () => {
         });
 
       } catch (err) {
-        console.log("Error fetching leaderboard:", err.message);
+        // console.log("Error fetching leaderboard:", err.message);
       }
     };
 
