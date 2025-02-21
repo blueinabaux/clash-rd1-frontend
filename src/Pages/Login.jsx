@@ -44,16 +44,16 @@ const Login = () => {
   const loadingToast = toast.loading("Logging in...");
     try {
       const res = await axios.post(
-        "http://localhost:5002/login",
+        "https://clashroundonebackend.api.credenz.co.in/login",
         {
           email: logData.email,
           password:logData.password
         },
         {
+          credentials: 'include',
           withCredentials:true
         }
-      )
-      ;
+      );
 
       console.log(res);
 

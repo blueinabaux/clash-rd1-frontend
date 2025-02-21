@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, Card } from "pixel-retroui";
 import Cookies from "js-cookie";
-import {FontAwesomeIcon} from "react-fontawesome"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 // import { FontAwesomeIcon } from "@fontawesome/re/act-fontawesome";
-import { faCircleInfo, faCirclePlay } from "react-fontawesome";
+import { faCircleInfo, faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 
 const Timer = ({questionData,timeLeft}) => {
   const [timeL, setTimeL] = useState(timeLeft)
+  const navigate = useNavigate();
   useEffect(() => {
     const timer = setInterval(() => {
      
@@ -83,10 +84,7 @@ export default function Questions() {
       const token = Cookies.get("token"); // Retrieve the token from cookies
 
       await axios
-        .get("http://localhost:5002/start", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-          },
+        .get("https://clashroundonebackend.api.credenz.co.in/start", {
 
           withCredentials: true,
         })
@@ -108,6 +106,8 @@ export default function Questions() {
           })
 
           console.log('ld',response.data.lifelinestatus[0],response.data.lifelinestatus[1],response.data.lifelinestatus[2])
+
+          console.log("OPTIONSSSSS: ",response.data.optionsObject )
 
           if (response.data.optionsObject) {
             const options = Object.entries(response.data.optionsObject).map(
@@ -136,87 +136,6 @@ export default function Questions() {
   console.log("QUES: ", questionData);
   console.log("OPTIONS: ", optionsArray);
 
-  // Timer countdown effect
- 
-  // useEffect(() => {
-  //   const fetchQues = async () => {
-  //     const token = Cookies.get("token");
-  
-  //     try {
-  //       const response = await axios.get("http://localhost:5002/start", {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //         withCredentials: true,
-  //       });
-
-  //       console.log('response',response.data)
-          
-  //       setLoading(false);
-  
-  //       if (response.data.timeleft !== timeLeft) {
-  //         setTimeLeft(response.data.timeleft);
-  //       }
-        
-  //       if (response.data.Marks !== marks) {
-  //         setMarks(response.data.Marks);
-  //       }
-  
-  //       const newLifeLines = {
-  //         lifeline1: response.data.lifelinestatus[0],
-  //         lifeline2: response.data.lifelinestatus[1],
-  //         lifeline3: response.data.lifelinestatus[2],
-  //       };
-  
-  //       setLifeLines((prev) => 
-  //         JSON.stringify(prev) === JSON.stringify(newLifeLines) ? prev : newLifeLines
-  //       );
-  
-  //       if (response.data.optionsObject) {
-  //         const newOptionsArray = Object.entries(response.data.optionsObject).map(
-  //           ([key, value]) => ({ id: parseInt(key), name: value })
-  //         );
-  
-  //         setOptionsArray((prev) => 
-  //           JSON.stringify(prev) === JSON.stringify(newOptionsArray) ? prev : newOptionsArray
-  //         );
-  //       }
-  
-  //       if (response.status === 202) {
-  //         alert(response.data.message);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching question:", error);
-  //       setLoading(false);
-  //     }
-  //   };
-  
-  //   fetchQues();
-  // }, []);
-  
- 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     console.log("dgfhjgjhg")
-  //     setTimeLeft((prevTime) => {
-  //       if (prevTime <= 1) {
-  //         clearInterval(timer);
-  //         navigate("/result");
-  //         return 0;
-  //       }
-  //       return prevTime - 1;
-  //     });
-  //   }, 1000);
-
-  //   return () => clearInterval(timer);
-  // }, []);
-
-  // Detect fullscreen exit and count exits
-
-  // Convert timeLeft to minutes and seconds
-  // const formatTime = (seconds) => {
-  //   const minutes = Math.floor(seconds / 60);
-  //   const secs = seconds % 60;
-  //   return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
-  // };
 
   // Function to send selected option
   const handleOptionSelect = (option) => {
@@ -263,13 +182,11 @@ export default function Questions() {
 
     if (lifelineType == "lifeline1") {
       const res1 = await axios.post(
-        `http://localhost:5002/${lifelineType}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        }
+        `https://clashroundonebackend.api.credenz.co.in/${lifelineType}`,
+     
       );
       alert("Your have 2 chances to answer the question");
+
       // setQuestionData(res1.data.question);
 
 
@@ -288,11 +205,8 @@ export default function Questions() {
 
     if (lifelineType == "lifeline2") {
       const res2 = await axios.post(
-        `http://localhost:5002/${lifelineType}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        }
+        `https://clashroundonebackend.api.credenz.co.in/${lifelineType}`,
+   
       );
 
       setFifty(res2.data.options);
@@ -320,9 +234,8 @@ export default function Questions() {
       
       
           const res3 = await axios.post(
-            `http://localhost:5002/${lifelineType}`,
+            `https://clashroundonebackend.api.credenz.co.in/${lifelineType}`,
             {
-              headers: { Authorization: `Bearer ${token}` },
               withCredentials: true,
             }
           );
@@ -360,7 +273,7 @@ export default function Questions() {
 
     await axios
       .post(
-        "http://localhost:5002/next",
+        "https://clashroundonebackend.api.credenz.co.in/next",
         { answer: selectedOption },
         {
           // headers: {
@@ -372,7 +285,13 @@ export default function Questions() {
       .then((response) => {
         console.log('response is',response)
 
+        console.log("CURRENT QUESTION: ---> ", response.data.question);
+
+        if(response.data.message === "First guess was wrong. You have one more chance!"){
+          return ;
+        }
         setQuestionData(response.data.question);
+
         setLoading(false);
         setTimeLeft(response.data.timeleft);
         setFifty([]);
@@ -383,11 +302,8 @@ export default function Questions() {
           lifeline2: response.data.lifeline[1],
           lifeline3: response.data.lifeline[2],
         })
-
-        console.log('ld',response.data.lifelinestatus[0],response.data.lifelinestatus[1],response.data.lifelinestatus[2])
-        handleOptionSelect(null)
-        setSelectedOption(null)
-        
+        // console.log("OPTIONSSSSS: ",response.data.optionsObject )
+        // console.log("--------------> ", response.data.optionsObject);
         
         
         if (response.data.optionsObject) {
@@ -397,8 +313,19 @@ export default function Questions() {
               name: value,
             })
           );
+          console.log("ye options ka hai next me: ", options);
           setOptionsArray(options);
         }
+
+
+        console.log('ld',response.data.lifelinestatus[0],response.data.lifelinestatus[1],response.data.lifelinestatus[2])
+        handleOptionSelect(null)
+        setSelectedOption(null)
+
+        // setOptionsArray(null);
+        
+
+
         
         if (response.status == 202) {
           alert(response.data.message);
@@ -412,6 +339,8 @@ export default function Questions() {
       // console.log(fifty)
       // console.log("Selected", selectedOption)
     };
+    console.log("OPTIONS ---------------- : ", optionsArray );
+
 
   if (loading) return <div>Loading...</div>;
 
@@ -425,10 +354,10 @@ export default function Questions() {
           textColor="black"
           borderColor="black"
           shadowColor="#c381b5"
-          className="p-4 min-h-[300px] w-[90%] text-start "
+          className="p-2 min-h-[300px] w-[90%] text-start "
         >
-          <h1 className="text-[20px]">
-            {questionData
+          <h1 className="text-[20px] w-full bg-transparent">
+            {/* {questionData
               ? `Q: ${questionData
                   .replace(/\\n/g, "\n") // Replace escaped newlines with actual newlines
                   .replace(/\\t/g, "\t") // Replace escaped tabs with actual tabs
@@ -436,7 +365,8 @@ export default function Questions() {
                     /\\"/g,
                     '"'
                   )} // Replace escaped quotes with actual quotes`
-              : "Loading question..."}
+              : "Loading question..."} */}
+              {questionData}
           </h1>
         </Card>
 

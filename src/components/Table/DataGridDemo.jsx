@@ -3,15 +3,16 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
-  { field: "rank", headerName: "Rank", width: 100 },
+  { field: "rank", headerName: "Rank", width: 200 },
   { field: "username", headerName: "Username", width: 200 },
-  { field: "marks", headerName: "Marks", width: 150 },
-  { field: "timeTaken", headerName: "Time Taken", width: 150 },
+  { field: "marks", headerName: "Marks", width: 200 },
+  // { field: "timeTaken", headerName: "Time Taken", width: 250 },
 ];
 
 export default function DataGridDemo({ rows = [] }) {
+  console.log("i cale",rows);
   return (
-    <Box sx={{ height: 300, width: '100%' }}>
+    <Box sx={{ height: 450, width: '100%' }}>
       <DataGrid
         rows={rows} // Ensure rows is always an array
         columns={columns}

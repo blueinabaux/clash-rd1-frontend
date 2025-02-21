@@ -1,78 +1,147 @@
-import React from 'react';
-import './LeaderBoard.css';
+import React, { useState, useEffect } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { Outlet } from "react-router-dom";
+import { Trophy, Medal, Target } from "lucide-react";
+import { Button, Card } from "pixel-retroui";
+import "./LeaderBoard.css";
+import axios from "axios";
+// import DataGridDemo from "../../components/Table/DataGridDemo.jsx";
+import Cookies from "js-cookie";
 import DataGridDemo from "../components/Table/DataGridDemo";
 
+const Leaderboard = () => {
+  const [leaderboardData, setLeaderboardData] = useState([]); 
+  const [category, setCategory] = useState("junior"); // Junior or Senior leaderboard
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedLeaderboard, setSelectedLeaderboard] = useState([]);
+  const [rank, setRank] = useState(null); 
 
-const LeaderBoard = () => {
-  const topPlayers = [
-    { rank: 1, username: 'POSIDON_33', questionsSolved: 10, accuracy: '90%' },
-    { rank: 2, username: 'POSIDON_23', questionsSolved: 10, accuracy: '90%' },
-    { rank: 3, username: 'POSIDON_33', questionsSolved: 10, accuracy: '90%' },
-  ];
+  useEffect(() => {
+    const getLeaderboard = async () => {
+      try {
+        const token = Cookies.get("jwt");
+        // const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/leaderboard`, {
+        //   headers: { Authorization: `Bearer ${token}` },
+        //   withCredentials: true,
+        // });
+        const res = await axios.get(`https://clashroundonebackend.api.credenz.co.in/leaderboard`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-  const playersList = [
-    { rank: 4, username: 'POSIDON_33', questionsSolved: 10, accuracy: '90%' },
-    { rank: 5, username: 'POSIDON_33', questionsSolved: 10, accuracy: '90%' },
-    // Add more players as needed
-  ];
+        console.log("LEADERBOARD: ", res.data.seniorLeaderboard)
+
+        // console.log("LEADERBOARD DATA:", res.data);
+        if(res.data.username == null){
+            setRank()
+        }
+        else if(res.data.isJunior){
+
+          setRank(res.data.userRank);
+        }
+        else{
+          setRank(res.data.userRank);
+
+        }
+
+
+        // const formatTime = (seconds) => {
+        //   const totalSeconds = Math.floor(seconds); // Ensure only integer seconds
+        //   const minutes = Math.floor(totalSeconds / 60);
+        //   const secs = totalSeconds % 60;
+        //   return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+        // };
+        
+
+
+        const formatData = (data) =>
+          data.map((player, index) => ({
+            id: index + 1,
+            rank: index + 1,
+            username: player.username,
+            marks: player.marks,
+            // timeTaken: formatTime(player.time_taken),
+          }));
+
+          console.log("formatted",formatData(res.data.juniorLeaderboard))
+          console.log("formatted",formatData(res.data.seniorLeaderboard))
+
+        setLeaderboardData({
+          junior: formatData(res.data.juniorLeaderboard),
+          senior: formatData(res.data.seniorLeaderboard),
+        });
+
+      } catch (err) {
+        console.log("Error fetching leaderboard:", err.message);
+      }
+    };
+
+    getLeaderboard();
+  }, []);
+
+
+  useEffect(() => {
+    console.log('first',leaderboardData)
+    console.log('lead cat',category, leaderboardData[category])
+    const selectedLeaderboard = leaderboardData[category] || [];
+    console.log("SELECTED: ", selectedLeaderboard)
+    setSelectedLeaderboard(selectedLeaderboard);
+
+  },[category])
+
+
+  
+
+  // const filteredRows = leaderboardData.filter((row) =>
+  //   row.username.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
 
   return (
-    <div className="leaderboard-container">
-      <h1 className="leaderboard-title">LEADERBOARD</h1>
-      
-      <div className="leaderboard-content">
-        <div className="top-players">
-          {topPlayers.map((player, index) => (
-            <div key={index} className="player-card">
-              <div className="medal">
-                {index === 0 && '🥇'}
-                {index === 1 && '🥈'}
-                {index === 2 && '🥉'}
-              </div>
-              <div className="player-info">
-                <div className="username">{player.username}</div>
-                <div className="stats-container">
-                  <div className="stats-row">
-                    <div className="stats-label">QUESTIONS SOLVED</div>
-                    <div className="stats-value">{player.questionsSolved}</div>
-                    
-                  </div>
-                  <div className="stats-row">
-                  <div className="stats-label">ACCURACY</div>
-                    <div className="stats-value">{player.accuracy}</div>
-                  </div>
-                </div>
-              </div>
+    <>
+      <div className="leaderboard-container">
+        <h1 className="leaderboard-title">LEADERBOARD</h1>
+
+        <div className="leaderboard-content">
+          
+
+          <div className="players-list  h-[90%] bg--500">
+            {
+              rank && <div className="your-rank">
+              <span>YOUR RANK</span>
+              <span className="rank-number px-[20px]">{rank}</span>
             </div>
-          ))}
+            }
+
+            {/* Junior/Senior Toggle */}
+        <div className="players-section w-full flex justify-center items-center">
+          <Button
+            bg={category === "junior" ? "#DE5027" : "#1a1b41"}
+            textColor="white"
+            borderColor="white"
+            className="juniorButton px-[2vw] py-0"
+            onClick={() => setCategory("junior")}
+          >
+            JUNIOR
+          </Button>
+          <Button
+            bg={category === "senior" ? "#DE5027" : "#1a1b41"}
+            textColor="white"
+            borderColor="white"
+            className="seniorButton px-[2vw] py-0"
+            onClick={() => setCategory("senior")}
+          >
+            SENIOR
+          </Button>
         </div>
 
-        <div className="players-list bg--400 h-auto ">
-          <div className="your-rank">
-            <span>YOUR RANK</span>
-            <span className="rank-number">10</span>
-          </div>
-          
-          <div className="players-section">
-            <h2 className="section-title">PLAYERS</h2>
-            <div className="search-bar">
-              <input type="text" placeholder="Search here" />
-            </div>
-          </div>
 
-          {/* <div className="table-container overflow-y-auto bg-purple-500"> */}
-            {/* <div className="table-header">
-              <span>RANK</span>
-              <span>USERNAME</span>
-              <span>QUES. SOLVED</span>
-              <span>ACCURACY</span>
-            </div> */}
-            <DataGridDemo/>
-          {/* </div> */}
+            {/* Pass leaderboardData as a prop to DataGridDemo */}
+            <DataGridDemo rows={selectedLeaderboard} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default LeaderBoard;
+export default Leaderboard;

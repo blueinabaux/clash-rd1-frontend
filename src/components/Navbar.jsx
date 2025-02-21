@@ -1,9 +1,46 @@
 // import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "pixel-retroui";
+import { notAuthUser } from "../redux/slices/authSlice";
+
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuth);
+
+
+  const logout = async () => {
+    const token = Cookies.get("token"); // Retrieve token from cookies
+
+    try {
+      const res = await axios.get(
+        // `${import.meta.env.VITE_BASE_URL}/auth/logout`,
+        "https://clashroundonebackend.api.credenz.co.in/logout",
+        {
+          // headers: {
+          //   Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+          // },
+          credentials: 'include',
+          withCredentials: true,
+        }
+      );
+
+      alert(res.data.message);
+
+      dispatch(notAuthUser());
+      navigate("/");
+
+      // toast.success("Logout successful!", { position: "top-right", autoClose: 2000 });
+    } catch (error) {
+      console.log("ERROR");
+      // toast.error("Logout failed! Try again.", { position: "top-right", autoClose: 3000 });
+    }
+  };
 
   const toPage = (url) => {
     navigate(url);
@@ -17,23 +54,23 @@ const Navbar = () => {
         CLASH
       </Link>
       <div className="nav-links h-full w-[32%] bg--600 flex justify-evenly items-center text-[20px] ">
-        <Link to="/leaderboard" className="nav-link">
-          LEADERBOARD
-        </Link>
-        <Link to="/about" className="nav-link">
-          ABOUT
-        </Link>
-        <Button
-          bg="#DE5027"
-          textColor="#FFF546"
-          borderColor="#310202"
-          shadowColor="#310202"
-         onClick={() => toPage("/login") }
-
-        className="h-[30px] text-[16px] px-[18px] py-[12px] flex justify-center items-center"
-        >
-          LOGIN
-        </Button>
+      {isAuthenticated ? (
+            <>
+              <Link to="/instructions">Instructions</Link>
+              <Link to="/questions">Questions</Link>
+              <Link to="/leaderboard">Leaderboard</Link>
+              <Button
+                bg="#CA5F93"
+                textColor="black"
+                borderColor="#4A1237"
+                shadow="#4A1237"
+                className="px-[20px] py-[2px] text-[16px] font-bold "
+                onClick={logout}
+              >
+                <h1 className="text-[#4A1237]">LOGOUT</h1>
+              </Button>
+            </>
+          ) : null}
       </div>
     </nav>
   );

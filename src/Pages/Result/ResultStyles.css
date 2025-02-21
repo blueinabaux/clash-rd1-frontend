@@ -1,12 +1,14 @@
-.container{
-    height: 85%;
+.result-container{
+    height: 90vh;
     width: 100%;
-    transform: translateY(-20px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     flex-wrap: wrap;
+    /* background-color: red; */
+  /* background-color: #1A1B41; */
+
 }
 
 a {
@@ -14,7 +16,6 @@ a {
 }
 
 .headingresult {
-    font-family: 'Avenixel', sans-serif !important;
     width: 100%;
     height: 20%;
     display: flex;
@@ -22,31 +23,32 @@ a {
     align-items: center;
     flex-wrap: wrap;
     letter-spacing: 0.1em;
-    font-size: 75px;
+    font-size: 60px;
     font-weight: 600;
     line-height: 70px;
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
 
-    color: #FFF546;
+    color: #FFD1E8;
     
     text-shadow:
-        3px 3px 0px #1E3445,
-        -3px -3px 0px #1E3445,
-        3px -3px 0px #1E3445,
-        -3px 3px 0px #1E3445;
+        3px 3px 0px #4A1237,
+        -3px -3px 0px #4A1237,
+        3px -3px 0px #4A1237,
+        -3px 3px 0px #4A1237;
 
 }
 
 .result-main{
-    height: 80%;
+    height: 76%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     transform: translateY(-3%);
+    /* background-color: #fff; */
 }
 
 .left-card-section{
@@ -86,7 +88,13 @@ a {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    border: 1px 0px 0px 0px;
     opacity: 0px;
+    border-radius: 5px;
+    background: #44437B;
+
+    box-shadow: inset 2px 2px 10px #1E3445;
+
 }
 
 .catimg{
@@ -124,34 +132,34 @@ a {
 }
 
 .userName{
-    font-size: 280%;
+    font-size: 30px;
     font-weight: 400;
     letter-spacing: 0.08em;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     
-    color: #FFF546;
+    color: #FFD1E8;
 
     text-shadow: 
-        2px 2px 0px #1E3445, 
-        -2px -2px 0px #1E3445, 
-        2px -2px 0px #1E3445, 
-        -2px 2px 0px #1E3445;
+        2px 2px 0px #4A1237, 
+        -2px -2px 0px #4A1237, 
+        2px -2px 0px #4A1237, 
+        -2px 2px 0px #4A1237;
 
 }
 
 .Email{
     height: 10%;
     line-height: 175%;
-    font-size: 130%;
+    font-size: 20px;
     font-weight: 150;
     letter-spacing: 0.08em;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
 
-    color: #FFDE7B;
+    color: #FFDAB3;
 
 }
 
@@ -162,11 +170,18 @@ a {
     font-weight: 200;
     letter-spacing: 0.02em;
     text-align: center; 
-    color: #FFF546;
+    color: #FFD1E8;
     background: transparent;
+    text-shadow: 
+        2px 2px 0px #4A1237, 
+        -2px -2px 0px #4A1237, 
+        2px -2px 0px #4A1237, 
+        -2px 2px 0px #4A1237;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .feedbackBtn {
@@ -182,6 +197,9 @@ a {
 .card2 ,.card3{
     width: 35%;
     height: 85%;
+    border-radius: 5px;
+    background: #44437B;
+    box-shadow: inset 2px 2px 10px #1E3445;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -200,26 +218,20 @@ a {
 .rank-num,.score-num{
     height: 30%;
     width: 50%;
-    font-size: 630%;
+    font-size: 50px;
     letter-spacing: 0.03em;
     font-weight: 300;
     text-align: center;
-    color:#FFF546;
-
-    text-shadow: 
-        2px 2px 0px #1E3445, 
-        -2px -2px 0px #1E3445, 
-        2px -2px 0px #1E3445, 
-        -2px 2px 0px #1E3445;
+    color: #FFDAB3;
 }
 
 .rank-text,.score-text{
     height: 10%;
-    font-size: 350%;
+    font-size: 30px;
     font-weight: 500;
     text-align: center;
     letter-spacing: 0.03em;
-    color: #FFDE7B;
+    color: #FFDAB3;
 }
 
 .right-card-section{
@@ -237,7 +249,11 @@ a {
     height: 90%;
     width: 80%;
     gap: 0px;
+    border: 1px 0px 0px 0px;
     opacity: 0px;
+    border-radius: 5px;
+    background: #44437B;
+    box-shadow: inset 2px 2px 10px #1E3445;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -262,7 +278,6 @@ a {
     justify-content: space-evenly;
     align-items: center;
     transform: translateY(-3%);
-    gap: 5%;
 }
 
 .stats-text {
@@ -272,12 +287,12 @@ a {
     font-weight: 500;
     letter-spacing: 0.02em;
     text-align: center;
-    color:#FFF546;
+    color: #FFD1E8;
     text-shadow: 
-        2px 2px 0px #1E3445, 
-        -2px -2px 0px #1E3445, 
-        2px -2px 0px #1E3445, 
-        -2px 2px 0px #1E3445;
+        2px 2px 0px #4A1237, 
+        -2px -2px 0px #4A1237, 
+        2px -2px 0px #4A1237, 
+        -2px 2px 0px #4A1237;
 
     display: flex;
     align-items: center;
@@ -290,6 +305,11 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 9px;
+    background: #CA5F93;
+    border: 2px solid #4A1237;
+    box-shadow: 3px 4px 4px 1px #1E3445;
+    padding: 10px;
 }
 
 .attempted-ques-left, .accuracy-left, .correct-ques-left, .total-ques-left {
@@ -311,17 +331,17 @@ a {
 }
 
 .attempted-ques-text, .accuracy-text, .correct-ques-text, .total-ques-text {
-    font-size: 190%;
+    font-size: 24px;
     font-weight: 500;
     letter-spacing: 0.05em;
-    color: #FFDE7B;
+    color: #FFDAB3;
 }
 
 .attempted-ques-num, .correct-ques-num, .total-ques-num, .accuracy-num {
-    font-size: 280%;
+    font-size: 24px;
     font-weight: 500;
     letter-spacing: 0.03em;
-    color:#FFF546;
+    color: #FFDAB3;
 }
 
 .accuracy-num {

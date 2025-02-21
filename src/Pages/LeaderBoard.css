@@ -7,117 +7,48 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* background-color: purple; */
+  /* background-color: #1A1B41; */
+
 
 }
 
 .leaderboard-title {
   font-size: 2.5rem;
-  color: #FFF546;
+  color: #e1d600;
   /* background-color: green; */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .leaderboard-content {
   height:80vh;
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   /* background-color: #fff; */
 }
 
-.top-players {
-  height: 100%;
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  /* background-color: red; */
 
-}
 
-.player-card {
-  background-color: #EC841C;
-  border: 2px solid #FFAC57;
-  border-radius: 12px;
-  padding: 15px;
-  display: flex;
-  /* gap: 15px; */
-  width: 80%;
-  height: 160px;
-}
 
-.medal {
-  font-size: 50px;
-  /* background-color: red; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20%;
-}
 
-.player-info {
-  /* background-color: blue; */
-  width: 80%;
-}
-
-.username {
-  font-size: 30px;
-  font-weight: bold;
-  color: #FFF546;
-  height: 50px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding: 0 10px;
-  /* background-color: red; */
-}
-
-.stats-container {
-  /* background-color: green; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  height: 70px;
-  
-}
-
-.stats-row {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* background-color: black; */
-  padding: 0 5px;
-}
-
-.stats-label {
-  font-size: 18px;
-  color: rgba(255, 245, 70, 0.8);
-  text-transform: uppercase;
-}
-
-.stats-value {
-  font-size: 24px;
-  font-weight: bold;
-  color: #FFF546;
-}
 
 .players-list {
-  height: 80%;
-  width: 50%;
+  height: 90%;
+  width: 700px;
+  /* background-color: #EC841C; */
   background-color: #EC841C;
-  border: 2px solid #FFAC57;
+
+  border: 2px solid #e1d600;
   border-radius: 15px;
   padding: 20px;
+  overflow-y: scroll;
 }
 
 .your-rank {
   background-color: #DE5027;
-  border: 2px solid #FFAC57;
+  border: 2px solid #e1d600;
   border-radius: 10px;
   padding: 12px 20px;
   display: flex;
@@ -127,8 +58,8 @@
 }
 
 .your-rank span {
-  color: #FFF546;
-  font-size: 1.2rem;
+  color: #e1d600;
+  font-size: 24px;
 }
 
 .players-section {
@@ -145,15 +76,16 @@
   width: 100%;
   padding: 10px 15px;
   border-radius: 8px;
-  border: 2px solid #EC841C;
-  background-color: #FFAC57;
-  color: #FFF546;
+  border: 2px solid #e1d600;
+  background-color: #000;
+  color: #e1d600;
   font-size: 1rem;
   outline: none;
 }
 
 .search-bar input::placeholder {
-  color: rgba(255, 245, 70, 0.7);
+  color: #a0567a;
+
 }
 
 .table-container {
@@ -168,7 +100,7 @@
   display: grid;
   grid-template-columns: 1fr 2fr 1.5fr 1fr;
   gap: 20px;
-  color: #FFF546;
+  color: #e1d600;
   font-weight: bold;
   font-size: 1rem;
   text-transform: uppercase;
