@@ -82,6 +82,8 @@ export default function Questions() {
   useEffect(() => {
     const fetchQues = async () => {
       const token = Cookies.get("token"); // Retrieve the token from cookies
+      console.log("COOOKIEEE: ", token);
+
 
       await axios
         .get("https://clashroundonebackend.api.credenz.co.in/start", {
@@ -106,6 +108,7 @@ export default function Questions() {
           })
 
           console.log('ld',response.data.lifelinestatus[0],response.data.lifelinestatus[1],response.data.lifelinestatus[2])
+
 
           console.log("OPTIONSSSSS: ",response.data.optionsObject )
 

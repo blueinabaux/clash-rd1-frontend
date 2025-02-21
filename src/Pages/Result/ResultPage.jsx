@@ -45,7 +45,9 @@ const ResultPage = () => {
     useEffect(() => {
       const fetchUserData = async () => {
         try {
-        const token = Cookies.get("jwt");
+        const token = Cookies.get("token");
+      console.log("COOOKIEEE IN RESULT: ", token);
+
 
           // const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/submit`,{withCredentials:true});
           const response = await axios.post(`https://clashroundonebackend.api.credenz.co.in/submit`,
