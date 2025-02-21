@@ -60,14 +60,14 @@ const ResultPage = () => {
           }
         );
 
-        const cookieHeader = response.headers["set-cookie"]; // Get Set-Cookie header
-        if (cookieHeader) {
-          const token = cookieHeader[0].split(";")[0].split("=")[1]; // Extract token
-          localStorage.setItem("token", token); // Store in localStorage
-          console.log("Token stored:", token);
-        } else {
-          console.error("No Set-Cookie header found");
-        }
+        // const cookieHeader = response.headers["set-cookie"]; // Get Set-Cookie header
+        // if (cookieHeader) {
+        //   const token = cookieHeader[0].split(";")[0].split("=")[1]; // Extract token
+        //   localStorage.setItem("token", token); // Store in localStorage
+        //   console.log("Token stored:", token);
+        // } else {
+        //   console.error("No Set-Cookie header found");
+        // }
 
         const data = response.data;
         console.log("RESULT: ---> ", data);

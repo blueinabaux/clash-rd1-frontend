@@ -49,10 +49,10 @@ const Login = () => {
           email: logData.email,
           password:logData.password
         },
-        {
+       {
           // credentials: 'include',
           withCredentials:true
-        }
+        } 
       );
 
       console.log(res);
@@ -72,7 +72,7 @@ const Login = () => {
       });
     //   console.log("login Success!!!",res.data);
       dispatch(authUser());
-      goFullScreen();
+      // goFullScreen();
       navigate("/instructions");
     } catch (err) {
       setErrorMessage("Invalid Username or Password");

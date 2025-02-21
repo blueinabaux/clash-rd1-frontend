@@ -22,10 +22,9 @@ const Navbar = () => {
         // `${import.meta.env.VITE_BASE_URL}/auth/logout`,
         "https://clashroundonebackend.api.credenz.co.in/logout",
         {
-          // headers: {
-          //   Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-          // },
-          credentials: 'include',
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+          },
           withCredentials: true,
         }
       );
