@@ -45,7 +45,7 @@ const ResultPage = () => {
     const fetchUserData = async () => {
       try {
         const token = Cookies.get("token");
-        console.log("COOOKIEEE IN RESULT: ", token);
+        // console.log("COOOKIEEE IN RESULT: ", token);
 
         // const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/submit`,{withCredentials:true});
         const response = await axios.post(
@@ -66,7 +66,7 @@ const ResultPage = () => {
         // }
 
         const data = response.data;
-        console.log("RESULT: ---> ", data);
+        // console.log("RESULT: ---> ", data);
         setUserData({
           username: data.username,
           email: data.currentUser.email,
@@ -78,7 +78,7 @@ const ResultPage = () => {
           totalQuestions: data.totalQuestionCount,
         });
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        alert("Error fetching user data:");
       }
     };
 

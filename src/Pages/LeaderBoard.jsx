@@ -29,7 +29,7 @@ const Leaderboard = () => {
         }
       );
 
-        console.log("LEADERBOARD: ", res.data.seniorLeaderboard)
+        // console.log("LEADERBOARD: ", res.data.seniorLeaderboard)
 
         // console.log("LEADERBOARD DATA:", res.data);
         if(res.data.username == null){
@@ -63,8 +63,8 @@ const Leaderboard = () => {
             // timeTaken: formatTime(player.time_taken),
           }));
 
-          console.log("formatted",formatData(res.data.juniorLeaderboard))
-          console.log("formatted",formatData(res.data.seniorLeaderboard))
+          // console.log("formatted",formatData(res.data.juniorLeaderboard))
+          // console.log("formatted",formatData(res.data.seniorLeaderboard))
 
         setLeaderboardData({
           junior: formatData(res.data.juniorLeaderboard),
@@ -81,10 +81,10 @@ const Leaderboard = () => {
 
 
   useEffect(() => {
-    console.log('first',leaderboardData)
-    console.log('lead cat',category, leaderboardData[category])
+    // console.log('first',leaderboardData)
+    // console.log('lead cat',category, leaderboardData[category])
     const selectedLeaderboard = leaderboardData[category] || [];
-    console.log("SELECTED: ", selectedLeaderboard)
+    // console.log("SELECTED: ", selectedLeaderboard)
     setSelectedLeaderboard(selectedLeaderboard);
 
   },[category])

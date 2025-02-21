@@ -39,7 +39,7 @@ const Login = () => {
 
     e.preventDefault();
     const {email,password}=logData;
-    console.log(logData);
+    // console.log(logData);
 
   const loadingToast = toast.loading("Logging in...");
     try {
@@ -56,7 +56,6 @@ const Login = () => {
         } 
       );
 
-      console.log(res);
 
       if (res.status === 404) {
         throw new Error("User not found");

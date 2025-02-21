@@ -6,7 +6,8 @@ import Cookies from "js-cookie";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 // import { FontAwesomeIcon } from "@fontawesome/re/act-fontawesome";
 import { faCircleInfo, faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Timer = ({questionData,timeLeft}) => {
   const [timeL, setTimeL] = useState(timeLeft)
@@ -70,10 +71,10 @@ export default function Questions() {
     }
   )
   const isDisabledArray = useMemo(() => {
-    console.log("Fifty",fifty)
-    console.log("dgjgjgh", optionsArray.map((items) => {
-      return fifty.length > 0 && !fifty.includes(items.id);
-    }));
+    // console.log("Fifty",fifty)
+    // console.log("dgjgjgh", optionsArray.map((items) => {
+    //   return fifty.length > 0 && !fifty.includes(items.id);
+    // }));
     return optionsArray.map((items) => {
       return fifty.length > 0 && !fifty.includes(items.id);
     });
@@ -83,7 +84,7 @@ export default function Questions() {
   useEffect(() => {
     const fetchQues = async () => {
       const token = Cookies.get("token"); // Retrieve the token from cookies
-      console.log("COOOKIEEE: ", token);
+      // console.log("COOOKIEEE: ", token);
 
 
       await axios
@@ -92,7 +93,7 @@ export default function Questions() {
           withCredentials: true,
         })
         .then((response) => {
-          console.log("checking options", response.data);
+          // console.log("checking options", response.data);
           setQuestionData(response.data.question);
           setLoading(false);
           setFifty([])
@@ -108,10 +109,10 @@ export default function Questions() {
             lifeline3: response.data.lifelinestatus[2],
           })
 
-          console.log('ld',response.data.lifelinestatus[0],response.data.lifelinestatus[1],response.data.lifelinestatus[2])
+          // console.log('ld',response.data.lifelinestatus[0],response.data.lifelinestatus[1],response.data.lifelinestatus[2])
 
 
-          console.log("OPTIONSSSSS: ",response.data.optionsObject )
+          // console.log("OPTIONSSSSS: ",response.data.optionsObject )
 
           if (response.data.optionsObject) {
             const options = Object.entries(response.data.optionsObject).map(
@@ -137,14 +138,14 @@ export default function Questions() {
 
     fetchQues();
   }, []);
-  console.log("QUES: ", questionData);
-  console.log("OPTIONS: ", optionsArray);
+  // console.log("QUES: ", questionData);
+  // console.log("OPTIONS: ", optionsArray);
 
 
   // Function to send selected option
   const handleOptionSelect = (option) => {
     // setSelectedOption(option);
-    console.log(option)
+    // console.log(option)
     setSelectedOption((prev) => (prev !== option ? option : prev));
     setIsDisabled(prev=>false);
    setFlag(true)
@@ -254,7 +255,7 @@ export default function Questions() {
               withCredentials: true,
             }
           );
-          console.log("LIFE LINE 3: ", res3.data);
+          // console.log("LIFE LINE 3: ", res3.data);
           toast.success("Gamble Activated!", { position: "top-right" });
 
           // alert("Gamble Activated");
@@ -307,9 +308,9 @@ export default function Questions() {
       )
       .then((response) => {
         if(response.data !== undefined){
-          console.log('response is',response)
+          // console.log('response is',response)
 
-        console.log("CURRENT QUESTION: ---> ", response.data.question);
+        // console.log("CURRENT QUESTION: ---> ", response.data.question);
         
         if(response.data.message === "First guess was wrong. You have one more chance!"){
           return ;
@@ -320,7 +321,7 @@ export default function Questions() {
         setTimeLeft(response.data.timeleft);
         setFifty([]);
         setMarks(response.data.Marks);
-        console.log('lifelines',response.data.lifeline)
+        // console.log('lifelines',response.data.lifeline)
         setLifeLines({
           lifeline1: response.data.lifeline[0],
           lifeline2: response.data.lifeline[1],
@@ -337,7 +338,7 @@ export default function Questions() {
               name: value,
             })
           );
-          console.log("ye options ka hai next me: ", options);
+          // console.log("ye options ka hai next me: ", options);
           setOptionsArray(options);
         }
 
@@ -350,9 +351,9 @@ export default function Questions() {
         
 
 
-        
+        // console.log(type(response.status))
         if (response.status == 202) {
-          alert(response.data.message);
+          alert("QUestions Over");
           navigate('/leaderboard');
         }
         }
@@ -362,13 +363,14 @@ export default function Questions() {
         }
       })
       .catch((error) => {
-        console.error("Error submitting answer:", error);
+        // console.error("Error submitting answer:", error);
+        alert("Error submitting answer. Try again.");
       });
       handleOptionSelect(null);
       // console.log(fifty)
       // console.log("Selected", selectedOption)
     };
-    console.log("OPTIONS ---------------- : ", optionsArray );
+    // console.log("OPTIONS ---------------- : ", optionsArray );
 
 
   if (loading) return <div>Loading...</div>;
@@ -379,26 +381,37 @@ export default function Questions() {
       <div className="question-left h-[76%] w-[60%] flex flex-col justify-start items-center bg--600 gap-[20px] ">
        
 <Timer questionData={questionData} timeLeft ={timeLeft} />
-        <Card
-          bg="#fefcd0"
-          textColor="black"
-          borderColor="black"
-          shadowColor="#c381b5"
-          className="p-2 min-h-[300px] w-[90%] text-start "
-        >
-          <h1 className="text-[20px] w-full bg-transparent">
-            {/* {questionData
-              ? `Q: ${questionData
-                  .replace(/\\n/g, "\n") // Replace escaped newlines with actual newlines
-                  .replace(/\\t/g, "\t") // Replace escaped tabs with actual tabs
-                  .replace(
-                    /\\"/g,
-                    '"'
-                  )} // Replace escaped quotes with actual quotes`
-              : "Loading question..."} */}
-              {questionData}
-          </h1>
-        </Card>
+<Card
+  bg="#fefcd0"
+  textColor="black"
+  borderColor="black"
+  shadowColor="#c381b5"
+  className="p-2 min-h-[300px] w-[90%] text-start overflow-hidden"
+>
+  <div
+    style={{
+      overflowY: "auto", // Enables vertical scrolling
+      padding: "8px",
+      border: "1px solid #000", // Optional border for visibility
+      backgroundColor: "#1e1e1e",
+      borderRadius: "8px",
+    }}
+    className="w-full h-[300px]"
+  >
+    <h1
+      style={{
+        whiteSpace: "pre-wrap",
+        wordWrap: "break-word",
+        color: "#fff",
+        fontSize: "20px",
+        fontFamily: "monospace",
+      }}
+    >
+      {questionData ? questionData : "Loading question..."}
+    </h1>
+  </div>
+</Card>
+
 
         <div className="options-container w-[90%] h-auto flex flex-wrap justify-between items-center gap-[20px] bg--600 ">
         {optionsArray && optionsArray.map((items, index) => (

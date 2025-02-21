@@ -36,7 +36,7 @@ const Navbar = () => {
 
       // toast.success("Logout successful!", { position: "top-right", autoClose: 2000 });
     } catch (error) {
-      console.log("ERROR");
+      // console.log("ERROR");
       // toast.error("Logout failed! Try again.", { position: "top-right", autoClose: 3000 });
     }
   };

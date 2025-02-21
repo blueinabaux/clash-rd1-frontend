@@ -10,7 +10,7 @@ const columns = [
 ];
 
 export default function DataGridDemo({ rows = [] }) {
-  console.log("i cale",rows);
+  // console.log("i cale",rows);
   return (
     <Box sx={{ height: 450, width: '100%' }}>
       <DataGrid

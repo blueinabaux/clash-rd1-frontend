@@ -23,7 +23,7 @@ const Leaderboard = () => {
           withCredentials: true,
         });
 
-        console.log("LEADERBOARD DATA:", res.data);
+        // console.log("LEADERBOARD DATA:", res.data);
         if(res.data.currentUser == null){
             setUserRank()
         }
@@ -63,7 +63,7 @@ const Leaderboard = () => {
         });
 
       } catch (err) {
-        console.log("Error fetching leaderboard:", err.message);
+        alert("Error fetching leaderboard:");
       }
     };
 
